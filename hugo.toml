@@ -1,11 +1,11 @@
-baseURL = "baseURL = "https://TheDancingBlaze.github.io/My_ctf_blog/""
+baseURL = "https://TheDancingBlaze.github.io/My_ctf_blog/"
 languageCode = "ru-en"
 title = "Мой сайт"
 theme = "hugo-theme-sigil"
 
 [taxonomies]
-  category = 'categories' # Категория = тип уязвимости (Web, Crypto)
-  tag = 'tags'            # Тег = инструмент (nmap, python) или платформа
+  category = 'categories'
+  tag = 'tags'
 
 [menu]
   [[menu.main]]
@@ -26,7 +26,6 @@ theme = "hugo-theme-sigil"
     weight = 40
 
 [params]  
-  # Соцсети 
   [[params.socialIcons]]
     name = "github"
     url = "https://github.com/TheDancingBlaze"
