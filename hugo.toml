@@ -1,4 +1,4 @@
-baseURL = "https://example.org/"
+baseURL = "baseURL = "https://TheDancingBlaze.github.io/My_ctf_blog/""
 languageCode = "ru-en"
 title = "Мой сайт"
 theme = "hugo-theme-sigil"
