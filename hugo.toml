@@ -1,0 +1,38 @@
+baseURL = "https://example.org/"
+languageCode = "ru-en"
+title = "Мой сайт"
+theme = "hugo-theme-sigil"
+
+[taxonomies]
+  category = 'categories' # Категория = тип уязвимости (Web, Crypto)
+  tag = 'tags'            # Тег = инструмент (nmap, python) или платформа
+
+[menu]
+  [[menu.main]]
+    name = "Write-ups"
+    pageRef = "/posts"
+    weight = 10
+  [[menu.main]]
+    name = "Теги"
+    pageRef = "/tags"
+    weight = 20
+  [[menu.main]]
+    name = "Категории"
+    pageRef = "/categories"
+    weight = 30
+  [[menu.main]]
+    name = "О сайте"
+    pageRef = "/about"
+    weight = 40
+
+[params]  
+  # Соцсети 
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/TheDancingBlaze"
+  [[params.socialIcons]]
+    name = "telegram"
+    url = "https://t.me/demo_730"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

@@ -1,0 +1,53 @@
+{{- define "main" }}
+
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+</header>
+
+{{- $sorted := .Pages.ByTitle }}
+{{- $platforms := slice }}
+{{- $difficulties := slice }}
+{{- $os := slice }}
+{{- $others := slice }}
+
+{{- range $sorted }}
+  <!-- Проверяем, начинается ли тег с нужного префикса -->
+  {{- if hasPrefix .Title "platform/" }}
+    {{- $platforms = $platforms | append . }}
+  {{- else if hasPrefix .Title "difficulty/" }}
+    {{- $difficulties = $difficulties | append . }}
+  {{- else if hasPrefix .Title "os/" }}
+    {{- $os = $os | append . }}
+  {{- else }}
+    {{- $others = $others | append . }}
+  {{- end }}
+{{- end }}
+
+{{- $sections := slice 
+    (dict "name" "Платформы" "items" $platforms) 
+    (dict "name" "Сложность" "items" $difficulties) 
+    (dict "name" "Операционные системы" "items" $os) 
+    (dict "name" "Другое" "items" $others) 
+-}}
+
+{{- range $sections }}
+  {{- if gt (len .items) 0 }}
+    <!-- Заголовок секции и полоса под ним -->
+    <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; font-size: 1.2rem; color: var(--secondary);">{{ .name }}</h2>
+    
+    <ul class="terms-tags">
+        {{- range .items }}
+        <li>
+            <!-- Убираем префикс из отображаемого названия (например, difficulty/Easy становится Easy) -->
+            {{- $displayTitle := .Title }}
+            {{- if strings.Contains .Title "/" }}
+                {{- $displayTitle = index (split .Title "/") 1 }}
+            {{- end }}
+            <a href="{{ .RelPermalink }}">{{ $displayTitle }} <sup><strong><sup>{{ .Page.Pages | len }}</sup></strong></sup></a>
+        </li>
+        {{- end }}
+    </ul>
+  {{- end }}
+{{- end }}
+
+{{- end }}

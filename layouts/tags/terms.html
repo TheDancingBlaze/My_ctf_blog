@@ -1,0 +1,59 @@
+{{- define "main" }}
+  {{- $terms := .Data.Terms.Alphabetical }}
+  
+  {{- /* Используем newScratch, чтобы безопасно собирать массивы внутри range */}}
+  {{- $s := newScratch }}
+  {{- $s.Set "platform" slice }}
+  {{- $s.Set "difficult" slice }}
+  {{- $s.Set "tool" slice }}
+  {{- $s.Set "technique" slice }}
+  {{- $s.Set "other" slice }}
+
+  {{- range $terms }}
+    {{- $url := .Page.RelPermalink }}
+    
+    {{- if strings.Contains $url "platform/" }}
+      {{- $s.Add "platform" (slice .) }}
+    {{- else if strings.Contains $url "difficult/" }}
+      {{- $s.Add "difficult" (slice .) }}
+    {{- else if strings.Contains $url "tool/" }}
+      {{- $s.Add "tool" (slice .) }}
+    {{- else if strings.Contains $url "technique/" }}
+      {{- $s.Add "technique" (slice .) }}
+    {{- else }}
+      {{- $s.Add "other" (slice .) }}
+    {{- end }}
+  {{- end }}
+
+  <header class="page-header">
+      <h1>{{ .Title }}</h1>
+  </header>
+
+  {{- /* Формируем секции из объявленных переменных */}}
+  {{- $sections := slice 
+      (dict "name" "Платформы" "items" ($s.Get "platform")) 
+      (dict "name" "Сложность" "items" ($s.Get "difficult"))
+      (dict "name" "Инструменты" "items" ($s.Get "tool")) 
+      (dict "name" "Техники" "items" ($s.Get "technique"))
+      (dict "name" "Другое" "items" ($s.Get "other"))
+  -}}
+
+  {{- range $sections }}
+    {{- if gt (len .items) 0 }}
+      <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; font-size: 1.2rem; color: var(--secondary);">{{ .name }}</h2>
+      
+      <ul class="terms-tags terms-tags--weighted">
+          {{- range .items }}
+          <li>
+              {{- $displayTitle := .Page.Title }}
+              {{- if strings.Contains .Page.Title "/" }}
+                  {{- $displayTitle = index (split .Page.Title "/") 1 }}
+              {{- end }}
+              <a href="{{ .Page.RelPermalink }}">{{ $displayTitle }} <sup><strong><sup>{{ .Count }}</sup></strong></sup></a>
+          </li>
+          {{- end }}
+      </ul>
+    {{- end }}
+  {{- end }}
+
+{{- end }}

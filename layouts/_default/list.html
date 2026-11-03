@@ -1,0 +1,27 @@
+{{- define "main" }}
+{{- $title := .Title }}
+{{- if strings.Contains $title "/" }}
+  {{- $title = index (split $title "/") 1 }}
+{{- end }}
+
+<header class="page-header">
+    <h1>{{ $title }}</h1>
+</header>
+
+<div class="post-list">
+  {{- range .Pages }}
+    <article class="post-entry">
+      <header class="entry-header">
+          <h2>{{ .Title }}</h2>
+      </header>
+      <div class="entry-content">
+          <p>{{ .Summary | plainify | truncate 160 }}</p>
+      </div>
+      <footer class="entry-footer">
+          <time>{{ .Date.Format "January 2, 2006" }}</time>
+      </footer>
+      <a class="entry-link" aria-label="post link to {{ .Title }}" href="{{ .Permalink }}"></a>
+    </article>
+  {{- end }}
+</div>
+{{- end }}

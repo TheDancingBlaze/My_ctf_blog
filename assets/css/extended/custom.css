@@ -1,0 +1,58 @@
+/* =========================================
+   Перекраска SIGIL (Espresso / Petal / Ivory)
+   ========================================= */
+
+/* 1. СВЕТЛАЯ ТЕМА */
+:root[data-theme=light], :root {
+  /* Цвета фона */
+  --theme: #F5F0E6; /* Ivory Hearth */
+  --entry: #F5F0E6;
+  --sg-surface: #F5F0E6;
+  --code-bg: #E5DEC9;
+  
+  /* Цвета текста */
+  --primary: #3E2723; /* Deep Espresso */
+  --secondary: #5A423D;
+  --content: #3E2723;
+  --border: #D1C7B8;
+
+  /* Акценты */
+  --sg-red: #D88293; /* Petal Reverie (чуть темнее для читаемости) */
+  --sg-green: #3E2723; 
+  --sg-amber-rgb: 216, 130, 147; 
+  --sg-note: #5A423D;
+}
+
+/* 2. ТЕМНАЯ ТЕМА */
+:root[data-theme=dark] {
+  /* Цвета фона */
+  --theme: #3E2723; /* Deep Espresso */
+  --entry: #4A332F;
+  --sg-surface: #3E2723;
+  --code-bg: #2B1B18;
+  
+  /* Цвета текста */
+  --primary: #F5F0E6; /* Ivory Hearth */
+  --secondary: #D1C7B8;
+  --content: #F5F0E6;
+  --border: #5A423D;
+
+  /* Акценты */
+  --sg-red: #F4C9D6; /* Petal Reverie */
+  --sg-green: #D1C7B8; 
+  --sg-amber-rgb: 244, 201, 214; 
+  --sg-note: #D1C7B8;
+}
+
+/* Отключаем текстуру "старой бумаги", чтобы она не конфликтовала с новым фоном */
+html body, html .header {
+  background-image: none !important;
+}
+
+/* Убираем рамки вокруг кота */
+.sg-seal__frame {
+  border: none !important;
+}
+.sg-seal__frame::after {
+  display: none !important;
+}
